@@ -17,6 +17,9 @@ phases:
         - $(aws ecr get-login --no-include-email)
         - export KUBECONFIG=$HOME/.kube/config
   build:
+    env:
+      parameter-store:
+        JWT_SECRET: JWT_SECRET
     commands:
       - docker build --tag $REPOSITORY_URI:$TAG .
 
@@ -35,6 +38,3 @@ phases:
       - ls
 artifacts:
   files: build.json
-env:
-  parameter-store:
-    JWT_SECRET: JWT_SECRET
